@@ -1,0 +1,316 @@
+:root { 
+  /* Es un selector especial en CSS que representa el elemento raíz del documento HTML (el <html>). Usado para definir variables CSS (llamadas custom properties) que después podés reutilizar en todo el archivo con var(--nombre). */
+  --bg: #f8f9fa;
+  --primary: #2d5a3d;
+  --text: #1a1a1a;
+  --white: #ffffff;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.navbar {
+  background: var(--primary);
+  color: white;
+  display: flex; /* Para que los links queden en fila */
+  padding: 1rem;
+  gap: 1rem;
+  font-size: 20px;
+}
+.navbar a {
+  color: white;
+}
+
+
+/* ==================== EMPIEZA CAMBIO LOGOS - CLAUDE ==================== */
+
+/* Logo centrado en la pantalla de Login */
+.auth-logo {
+  width: 110px;
+  display: block;
+  margin: 0 auto 0.5rem auto;
+}
+
+/* Logo pequeño en el Navbar, a la izquierda de My Team */
+.navbar-logo {
+  height: 36px;
+  width: auto;
+}
+
+/* ==================== TERMINA CAMBIO LOGOS - CLAUDE ==================== */
+
+/* ==================== EMPIEZA CAMBIO TABLA JUGADORES - CLAUDE ==================== */
+
+/* Contenedor general de la tabla: centra y limita el ancho */
+.jugadores-tabla {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  font-size: 0.95rem;
+}
+
+/* Cada fila (header + jugadores) usa Grid con 5 columnas fijas alineadas */
+.jugador-card {
+  display: grid;
+  grid-template-columns: 2fr 1.2fr 1fr 1.5fr 100px; /* Nombre | Posicion | Precio | Equipo | Boton */
+  align-items: center;
+  padding: 10px 14px;
+  gap: 0.5rem;
+  border-bottom: 1px solid #d4e8d4; /* Separador sutil entre filas */
+  background-color: var(--white);
+  transition: background-color 0.15s;
+}
+
+/* Hover en filas de datos (no en el header) */
+.jugador-card:not(.jugador-header):hover {
+  background-color: #eaf5ea; /* Verde muy claro al pasar el mouse */
+}
+
+/* Fila de encabezados: fondo verde principal, texto blanco y en mayusculas */
+.jugador-header {
+  background-color: var(--primary);
+  color: var(--white);
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border-radius: 6px 6px 0 0; /* Bordes redondeados solo arriba */
+  border-bottom: none;
+}
+
+/* Cada celda de dato ocupa su columna; el grid alinea todo solo */
+.dato {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; /* Corta con "..." si el texto es muy largo */
+}
+
+/* Boton de compra: verde secundario, compacto y con hover */
+.jugador-btn {
+  padding: 5px 14px;
+  background-color: var(--primary);
+  color: var(--white);
+  border: none;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s, transform 0.1s;
+  justify-self: center; /* Centra el boton dentro de su columna */
+}
+
+.jugador-btn:hover {
+  background-color: #3d7a54; /* Verde un tono mas claro al hover */
+}
+
+.jugador-btn:active {
+  transform: scale(0.96);
+}
+.jugador-btn:disabled {
+  opacity: 0.5;
+  background-color: #1a2a0b;
+}
+/* ==================== TERMINA CAMBIO TABLA JUGADORES - CLAUDE ==================== */
+
+/* ====================================================
+   🔴 DESDE ACA EMPEZO CLAUDE - ID: AUTH PAGES STYLES 🔴
+   ==================================================== */
+/* ── Auth pages (Login & Register) ── */
+.auth-page {
+  min-height: 100vh;
+  background-color: #1a3a2a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.auth-card {
+  background-color: #243d30;
+  border-radius: 12px;
+  padding: 2.5rem 2rem;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.auth-title {
+  color: #c8f08f;
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-align: center;
+  margin: 0 0 0.5rem 0;
+}
+
+.auth-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1.5px solid #3d6b4f;
+  border-radius: 8px;
+  background-color: #1a3a2a;
+  color: #ffffff;
+  font-size: 1rem;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+}
+
+.auth-input::placeholder {
+  color: #7aab8a;
+}
+
+.auth-input:focus {
+  border-color: #a8d432;
+}
+
+.auth-btn {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #a8d432;
+  color: #1a3a2a;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+  margin-top: 0.25rem;
+}
+
+.auth-btn:hover {
+  background-color: #bde84a;
+}
+
+.auth-btn:active {
+  transform: scale(0.98);
+}
+
+.auth-footer {
+  text-align: center;
+  color: #c8f08f;
+  font-size: 0.9rem;
+}
+
+.auth-footer p {
+  margin: 0 0 0.25rem 0;
+}
+
+.auth-footer a {
+  color: #a8d432;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.auth-footer a:hover {
+  text-decoration: underline;
+}
+
+.auth-demo {
+  text-align: center;
+  color: #7aab8a;
+  font-size: 0.8rem;
+  margin: 0;
+}
+
+@media (max-width: 480px) {
+  .auth-card {
+    padding: 2rem 1.25rem;
+  }
+}
+
+/* ====================================================
+   🔴 HASTA ACA LLEGO CLAUDE - ID: AUTH PAGES STYLES 🔴
+   ==================================================== */
+
+/* ==================== EMPIEZA CAMBIO CSS CANCHA - CLAUDE ==================== */
+
+/* Copiado del diseño del proyecto Futbol (soccer-field) */
+.cancha {
+  display: flex;
+  flex-direction: row;
+  background: #1b4d2e;                              /* Verde oscuro del proyecto Futbol */
+  height: 580px;
+  min-width: 900px;
+  margin: 2rem auto;
+  gap: 0;
+  border: 4px solid white;                          /* Líneas de banda */
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.5);   /* Sombra interior: efecto profundidad de estadio */
+}
+
+/* Línea media vertical semitransparente, igual que en el proyecto Futbol */
+.cancha::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.4);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Círculo central decorativo (div .field-circle en el JSX) */
+.field-circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 110px;
+  height: 110px;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Las 4 columnas se distribuyen en partes iguales */
+.fila-arqueros,
+.fila-defensores,
+.fila-mediocampistas,
+.fila-delanteros {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem;
+  position: relative;
+  z-index: 2;                                       /* Por encima de la línea y el círculo */
+}
+
+/* Tarjeta de jugador: estilo oscuro con borde neon, igual al proyecto Futbol */
+.jugador-cancha {
+  background: #161e2e;
+  border: 2px solid #00d2ff;
+  border-radius: 8px;
+  padding: 6px 10px;
+  text-align: center;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: white;
+  white-space: nowrap;
+  min-width: 100px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+/* ==================== TERMINA CAMBIO CSS CANCHA - CLAUDE ==================== */
+
+.presupuesto {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--primary);
+  padding: 0.5rem 1rem;
+  margin: 1rem;
+}

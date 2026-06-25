@@ -1,0 +1,11 @@
+{miEquipoVirtual.map((listaEquipoVirtual) => ( //miequipovirtual es la lista de equipo q traje de la bd
+                //listaEquipoVirtual es el nombre de cada elemento individual
+                //.map recorre el array miequipovirtual
+                <div key={listaEquipoVirtual.id}>
+                    {listaEquipoVirtual.nombre}
+                    {listaEquipoVirtual.posicion}
+                    {listaEquipoVirtual.precio}
+                </div>
+                
+                //* 1)Ahora dibujo el rectangulo para hacer la cancha de futbol, con los jugadores que traigo                        
+            ))}

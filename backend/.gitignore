@@ -1,0 +1,4 @@
+node_modules
+.env
+DATABASE_URL=postgresql://neondb_owner:npg_SdEoNf5X9yxa@ep-small-sea-aqrvaaxm-pooler.c-8.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require
+PORT=3000
