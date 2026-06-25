@@ -21,3 +21,12 @@ export const verifyToken = (req, res, next) => { //next es para que siga en el p
         res.status(400).json({message: 'Not possible to access. Token not valid'})
     }
 }
+ //! CREO LA FUNCION PARA VERIFICAR QUE EL USUARIO QUE ENTRA SEA USER O ADMIN 
+export const verifyAdmin = (req, res, next) => {
+    if (req.user.rol === 'admin') {
+        next(); //Si es admin, tiene permiso para entrar.
+    }else {
+        res.status(403).json({message: 'Not allowed to acces here, admin only'}); 
+    }
+
+}

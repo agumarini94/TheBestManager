@@ -28,7 +28,7 @@ const login = async (req, res) => {
         const user = result.rows[0]; //si encuentra el mail, entonces traigo ese usuario. 
         if (user && await bcrypt.compare(password , user.password)) {
             //si la contrasena coincide, la guardo en un token. 
-            const token = jwt.sign({ userId: user.id }, JWT_SECRET, { expiresIn: '2h' });
+            const token = jwt.sign({ userId: user.id, rol: user.rol }, JWT_SECRET, { expiresIn: '2h' });
             //Luego muestro el resultado obtenido. 
             res.json({
                 message: 'Welcome! ',

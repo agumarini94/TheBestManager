@@ -5,7 +5,9 @@ import miEquipoVirtualRouter from './routes/equipoVirtual.js';
 import comprarJugador from './routes/mercado.js';
 import register from './routes/register.js';
 import login from './routes/login.js';
+import fechaJugada from './routes/fechas.js';
 import getPresupuesto from './routes/users.js';
+import crearEstadisticas from './routes/estadisticas.js';
 import cors from 'cors'; 
 
 const app = express();
@@ -20,6 +22,8 @@ app.use('/api/mercadoJugadores', comprarJugador)
 app.use('/api/register', register)
 app.use('/api/login', login)
 app.use('/api/presupuesto', getPresupuesto)
+app.use('/api/fechas', fechaJugada)
+app.use('/api/estadisticas',crearEstadisticas)
 app.listen(PORT, () => {
     console.log(`Conect in Port ${PORT}`)
 })

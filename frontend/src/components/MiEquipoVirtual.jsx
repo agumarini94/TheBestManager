@@ -2,10 +2,13 @@ import React, { useState, useEffect } from 'react'; //useState para guardar temp
 import axios from 'axios';
 import Navbar from './Navbar.jsx';
 
+
+
 const MiEquipoVirtual = () => {
     const [miEquipoVirtual, setMiEquipoVirtual] = useState([]);
-    const token = localStorage.getItem('token'); //* Primero que nada obtengo el token para ver si el usuario esta autorizado a estar aca . 
-
+    const token = localStorage.getItem('token'); //* Primero que nada obtengo el token para ver si el usuario esta 
+    // autorizado a estar aca . 
+    const [estadisticas, setEstadisticas] = useState([]); //esto es para ver las estadisticas del usuario.
     useEffect(() => { //cuando ingreso, se dispara el useEffect con todas las acciones 
         const fetchMiEquipoVirtual = async() => {
             try {
@@ -48,7 +51,21 @@ const MiEquipoVirtual = () => {
     const mediocampista = miEquipoVirtual.filter((jugador) => jugador.posicion === 'Mediocampista');
     const delantero = miEquipoVirtual.filter((jugador) => jugador.posicion === 'Delantero');
 
+    //! ----- ACA MUESTRO LAS ESTADISTICAS DE LOS JUGADORES --- 
 
+    const mostrarEstadisticas = async () => {
+        try {
+            const res = await fetch('http://localhost:5006/api/estadisticas', { headers: { Authorization: `Bearer ${token}` } }); 
+            const data = await res.json();
+            setEstadisticas(data);
+        } catch (error) {
+            console.log(error)
+            alert(error.response?.data?.message || 'Not posible to charge the estadistics');
+        }
+    }
+    useEffect(() => {
+        mostrarEstadisticas();
+    }, []);
     return (
         <>
             <Navbar />
@@ -98,7 +115,16 @@ const MiEquipoVirtual = () => {
                 </div>
                 {/* Abajo cierro el div que arranca todo */}
             </div> 
+            {/* //! Aca muestro las estadisticas del usuario */}
+            <div className='panel-estadisticas'>
+                {estadisticas.map((stat) => (
+                    <div key={stat.nombre}>
+                        <p>{stat.nombre} - Goles: {stat.goles} - Asistencias: {stat.asistencias}</p>
+                    </div>
+                ))}
+            </div>
         </>
+        
     ) // esto cierra el return 
 } //esto cierra elmiequipovirtual de arriba de todo. 
 
