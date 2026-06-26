@@ -9,6 +9,7 @@ const MiEquipoVirtual = () => {
     const token = localStorage.getItem('token'); //* Primero que nada obtengo el token para ver si el usuario esta 
     // autorizado a estar aca . 
     const [estadisticas, setEstadisticas] = useState([]); //esto es para ver las estadisticas del usuario.
+    const [presupuesto, setPresupuesto] = useState([0]); //* Esto es para obtener mi presupuesto. 
     useEffect(() => { //cuando ingreso, se dispara el useEffect con todas las acciones 
         const fetchMiEquipoVirtual = async() => {
             try {
@@ -66,9 +67,38 @@ const MiEquipoVirtual = () => {
     useEffect(() => {
         mostrarEstadisticas();
     }, []);
+
+    //! Aca muestro el presupuesto del usuario <------** 
+    const getPresupuesto = async () => {
+        try {
+            const res = await axios.get('http://localhost:5006/api/presupuesto', { headers: { Authorization: `Bearer ${token}` } });
+            setPresupuesto(res.data.presupuesto) //* 1) Guardo el presupuesto que traje del backend
+
+        } catch (error) {
+            alert('Not possible to get the credit');
+        }
+    }
+    useEffect(() => {
+        getPresupuesto() //* 2) Llamo a la funcion para que se ejecute.
+    }, []); //* 3) Solo se ejecuta una vez, sin el [] se repetiria. 
+
     return (
         <>
             <Navbar />
+            <h2>{miEquipoVirtual[0]?.nombre_equipo}</h2>
+            {/* //! Aca muestro las estadisticas del usuario */}
+            <div className='panel-estadisticas'>
+                {/* //! MUESTRO EL PRESUPUESTO DEL USUARIO ------*=* */}
+                <div>
+                    <p className='presupuesto'>Credit available: {presupuesto}</p>
+                </div>
+                <h1>My points: </h1>
+                {estadisticas.map((stat) => (
+                    <div key={stat.nombre}>
+                        <p>{stat.nombre} - Goles: {stat.goles} - Asistencias: {stat.asistencias}</p>
+                    </div>
+                ))}
+            </div>
         <div className='cancha'>
                 {/* ==================== EMPIEZA CAMBIO JSX CANCHA - CLAUDE ==================== */}
                 {/* Div decorativo: circulo central de la cancha, sin logica */}
@@ -114,15 +144,9 @@ const MiEquipoVirtual = () => {
                     ))}
                 </div>
                 {/* Abajo cierro el div que arranca todo */}
+                
             </div> 
-            {/* //! Aca muestro las estadisticas del usuario */}
-            <div className='panel-estadisticas'>
-                {estadisticas.map((stat) => (
-                    <div key={stat.nombre}>
-                        <p>{stat.nombre} - Goles: {stat.goles} - Asistencias: {stat.asistencias}</p>
-                    </div>
-                ))}
-            </div>
+            
         </>
         
     ) // esto cierra el return 
