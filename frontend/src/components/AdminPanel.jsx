@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Navbar from "./Navbar.jsx";
+import { useEffect } from "react";
 
 const AdminPanel = () => { //! Aca creo los formularios para cargar los puntajes. 
     const token = localStorage.getItem('token'); //obtengo el token del admin
     const [posicion, setPosicion] = useState('');
     const [evento, setEvento] = useState('');  //Inician con '' xq son valores de texto
     const [puntaje, setPuntaje] = useState('');
-
+    const [seccionActiva, setSeccionActiva] = useState(null) //* Para mostrar o no la funcion de cargar puntajes
+    const [puntajesCreados, setPuntajesCreados] = useState([]); //[] xq va a guardar una lista de puntajes
     // acá va la función para enviar los datos
     // acá va el return con el formulario
 
@@ -27,17 +29,33 @@ const AdminPanel = () => { //! Aca creo los formularios para cargar los puntajes
             alert('Not possible to charge the puntations');
         }
 }
+    const getPuntajes = async () => {
+        try {
+            const res = await axios.get('http://localhost:5006/api/crearPuntajes', { headers: { Authorization: `Bearer ${token}` } });
+            setPuntajesCreados(res.data); //*Guardo los puntajes que traje de la bd 
+        } catch (error) {
+            alert('Not possible to show the puntations');
+        }
+    }
+    useEffect(() => {
+        getPuntajes()
+    }, []);
 
-    
     return (
-        <div>
-            <Navbar />
-            <h2> Admin Admin </h2>
+    <>
+     <Navbar />
+        <div className="admin-panel">
+           
+            <h2> Panel Admin </h2>
+            <button onClick={() => setSeccionActiva('puntajes')} className="admin-btns">Crear Puntajes</button>
+            <button onClick={() => setSeccionActiva('estadisticas')} className="admin-btns">Cargar Estadísticas</button>
+
+            {seccionActiva === 'puntajes' && (
             <form onSubmit={handleSubmitPuntajes}>
                 <select value={posicion} onChange={(e) => setPosicion(e.target.value)}>
                     <option value=""> Select Position </option>
                     <option value="Arquero"> Goal Keaper </option>
-                    <option value="Defensa"> Defense </option>
+                    <option value="Defensor"> Defense </option>
                     <option value="Mediocampista"> Mediocampist </option>
                     <option value="Delantero"> Atack </option>
                 </select>
@@ -69,10 +87,29 @@ const AdminPanel = () => { //! Aca creo los formularios para cargar los puntajes
                     <option value="9"> 9 </option>
                 </select>
                 <button onClick={handleSubmitPuntajes}>Save</button>
-            </form>
-            
+                </form>
+                )}
+                 {/* ACA CREO LA TABLA PARA MOSTRAR LOS PUNTAJES QUE FUI CREANDO ---**  */}
+                <table className="tabla-puntajes">
+                    <thead>
+                        <tr>
+                            <th>Position</th>
+                            <th>Event</th>
+                            <th>Points</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {puntajesCreados.map((p) => (
+                            <tr key={p.id}>
+                                <td>{p.posicion}</td>
+                                <td>{p.evento}</td>
+                                <td>{p.puntos}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
         </div>
-        // Aca va el front
+    </>
     )
 }
 
