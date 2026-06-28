@@ -29,7 +29,7 @@ const Login = () => {
             if (rol === 'user') {
                 navigate('/miEquipoVirtual') //! Creo que esta mal esto 
             } else {
-                navigate('admin') //! Aunque no tengo un role admin.
+                navigate('/adminPanel') //! Aunque no tengo un role admin.
             }
 
         } catch (error) {

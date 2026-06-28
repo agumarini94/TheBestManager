@@ -5,6 +5,7 @@ import Login from './components/Login.jsx'; //* traigo el login
 import Jugadores from './components/Jugadores.jsx';
 import MiEquipoVirtual from './components/MiEquipoVirtual.jsx';
 import Register from './components/Register.jsx';
+import AdminPanel from './components/AdminPanel.jsx';
 function App() {  
   return (
     <BrowserRouter>
@@ -14,6 +15,7 @@ function App() {
         <Route path='/register' element={<Register />} />
         <Route path='/miEquipoVirtual' element={<MiEquipoVirtual />} />
         <Route path='/jugadores' element={<Jugadores />} />
+        <Route path='/adminPanel' element={<AdminPanel />} />
       </Routes>
     </BrowserRouter>
   )

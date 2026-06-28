@@ -87,10 +87,10 @@ const MiEquipoVirtual = () => {
             <Navbar />
             <h2>{miEquipoVirtual[0]?.nombre_equipo}</h2>
             {/* //! Aca muestro las estadisticas del usuario */}
-            <div className='panel-estadisticas'>
+            <div className='panel-estadisticas'>                                                                                                                                                                
                 {/* //! MUESTRO EL PRESUPUESTO DEL USUARIO ------*=* */}
                 <div>
-                    <p className='presupuesto'>Credit available: {presupuesto}</p>
+                    <p className='presupuesto'>Credit available:$ {presupuesto}</p>
                 </div>
                 <h1>My points: </h1>
                 {estadisticas.map((stat) => (
