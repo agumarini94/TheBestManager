@@ -7,6 +7,13 @@ const Jugadores = () => { //Esto me trae el listado de los jugadores
     const [jugadores, setJugadores] = useState([]);
     const [miEquipo, setMiEquipo] = useState([]); //* Esto es para chequear los jugadores que ya compre. 
     const [presupuesto, setPresupuesto] = useState([0]); //* Esto es para obtener mi presupuesto. 
+    //! Esto es para hacer el carrusel de equipos.
+    const equiposUnicos = [...new Set(jugadores.map((j) => j.name_team))]
+    const [equipoActivo, setEquipoActivo] = useState(0)
+    //! Agrego unos useState para ordenar los jugadores por equipo ,precio y posicion.
+
+    const [filtroPosicion, setFiltroPosicion] = useState('')
+    const [ordenPrecio, setOrdenPrecio] = useState('asc')
     useEffect(() => {
         const fetchMiEquipoVirtual = async () => {
         try {
@@ -58,6 +65,11 @@ const Jugadores = () => { //Esto me trae el listado de los jugadores
         }
     
     }
+    const jugadoresFiltrados = jugadores
+        .filter((j) => j.name_team === equiposUnicos[equipoActivo])
+        .filter((j) => filtroPosicion ? j.jugador_posicion === filtroPosicion : true)
+        .sort((a, b) => ordenPrecio === 'asc' ? a.jugador_precio - b.jugador_precio : b.jugador_precio - a.jugador_precio)
+    console.log(equiposUnicos)
     
     //! ACA HAGO EL USE EFFECT PARA OBTENER EL PRESUPUESTO DE CADA USUARIO ! 
     const getPresupuesto = async () => {
@@ -78,7 +90,33 @@ const Jugadores = () => { //Esto me trae el listado de los jugadores
     return (
         <> <Navbar />
             <p className='presupuesto'>Credit available: {presupuesto}</p>
+            {/* ACA AGREGO EL CARRUSEL PARA LOS EQUIPOS */}
+            <div className="carrusel-equipos">
+                <button onClick={() => setEquipoActivo(prev => prev === 0 ? equiposUnicos.length - 1 : prev - 1)}>←</button>
+                <h2>{equiposUnicos[equipoActivo]}</h2>
+                <button onClick={() => setEquipoActivo(prev => prev === equiposUnicos.length - 1 ? 0 : prev + 1)}>→</button>
+            </div>
+
         <div className="jugadores-tabla">
+
+                
+                <div className="filtros">
+
+                    <select value={filtroPosicion} onChange={(e) => setFiltroPosicion(e.target.value)}>
+                        <option value="">All positions</option>
+                        <option value="Arquero">Goalkeeper</option>
+                        <option value="Defensor">Defender</option>
+                        <option value="Mediocampista">Midfielder</option>
+                        <option value="Delantero">Forward</option>
+                    </select>
+
+                    <select value={ordenPrecio} onChange={(e) => setOrdenPrecio(e.target.value)}>
+                        <option value="asc">Price: Low to High</option>
+                        <option value="desc">Price: High to Low</option>
+                    </select>
+                </div>
+                
+
             {/* Fila de encabezados de columna — solo visual, sin lógica */}
             <div className="jugador-card jugador-header">
                 <span className="dato">Player</span>
@@ -87,12 +125,12 @@ const Jugadores = () => { //Esto me trae el listado de los jugadores
                 <span className="dato">Team</span>
                 <span></span>
             </div>
-            {jugadores.map((ListaJugadores) => (
+                {jugadoresFiltrados.map((ListaJugadores) => (
                 //jugadores es el array con todos los jugadores que traje de la bd.
                 //ListaJugadores es el nombre de cada elemento individual.
                 //.map() recorre el array
                 //En la primera vuelta vale (name_player ? "Benedeto" y en la segunda vale namePlayer : Rojo...)
-                <div key={ListaJugadores.name_player} className='jugador-card'>
+                <div key={ListaJugadores.id} className='jugador-card'>
                     <span className="dato">{ListaJugadores.name_player}</span>
                     <span className="dato">{ListaJugadores.jugador_posicion}</span>
                     <span className="dato">{ListaJugadores.jugador_precio}</span>

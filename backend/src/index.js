@@ -9,6 +9,7 @@ import fechaJugada from './routes/fechas.js';
 import getPresupuesto from './routes/users.js';
 import crearEstadisticas from './routes/estadisticas.js';
 import puntajesRouter from './routes/puntajes.js';
+import obtenerEstadisticas from './routes/IAestadisticas.js';
 import cors from 'cors'; 
 
 const app = express();
@@ -26,6 +27,8 @@ app.use('/api/presupuesto', getPresupuesto)
 app.use('/api/fechas', fechaJugada)
 app.use('/api/estadisticas', crearEstadisticas)
 app.use('/api/crearPuntajes', puntajesRouter)
+app.use('/api/obtenerEstadisticas', obtenerEstadisticas);
+
 app.listen(PORT, () => {
     console.log(`Conect in Port ${PORT}`)
 })

@@ -482,3 +482,69 @@ body {
   cursor: pointer;
   margin-top: 0.5rem;
 }
+
+.carrusel-equipos {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 2rem;
+}
+
+.carrusel-equipos h2 {
+  font-size: 1.8rem;
+  color: var(--primary);
+  margin: 0;
+  min-width: 200px;
+  text-align: center;
+}
+
+.carrusel-equipos button {
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.carrusel-equipos button:hover {
+  opacity: 0.8;
+}
+
+.filtros {
+  display: flex;
+  gap: 1rem;
+  padding: 0.5rem 2rem;
+  margin-bottom: 1rem;
+}
+
+.filtros select {
+  padding: 8px 12px;
+  border: 1.5px solid var(--primary);
+  border-radius: 8px;
+  font-size: 14px;
+  color: var(--text);
+  background: white;
+  cursor: pointer;
+}
+
+.filtros select:hover {
+  border-color: #1a3a2a;
+}
+
+.btn-exit {
+  margin-left: auto;
+  padding: 8px 16px;
+  background: transparent;
+  color: white;
+  border: 1.5px solid white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.btn-exit:hover {
+  background: rgba(255, 255, 255, 0.1);
+}

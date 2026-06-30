@@ -14,7 +14,7 @@ const Navbar = () => {
             <img src={logo} className="navbar-logo" alt="logo" />
             <Link to='/miEquipoVirtual'>My Team</Link>
             <Link to='/jugadores'>Players</Link>
-            <button onClick={handleLogOut}>Exit</button>
+            <button className="btn-exit" onClick={handleLogOut}>Exit</button>
         </div>
     )
 }
